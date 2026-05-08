@@ -272,30 +272,44 @@
     </div>
   </div>
 
-  <!-- First-session rebook spotlight -->
-  <div class="spotlight-card">
-    <h3>Who's Leaving Without a Next Session? — April 2026 <span class="opportunity-tag">🎯 Key Opportunity</span></h3>
-    <div class="sub-label">Breakdown of clients NOT rebooked after their most recent session, by client tenure. Goal: get 1st-session clients on the books before they leave.</div>
-    <div class="segment-bars">
-      <div class="seg-row new">
-        <div class="seg-label">New clients (1st session only)</div>
-        <div class="seg-bar-wrap"><div class="seg-bar"><span>12.7%</span></div></div>
-        <div class="seg-pct">12.7%</div>
+  <!-- First-session rebook spotlight — pie chart -->
+  <div class="charts-grid">
+    <div class="chart-card">
+      <h3>Who's Leaving Without a Next Session? — April 2026 <span class="opportunity-tag">🎯 Key Opportunity</span></h3>
+      <p>Composition of clients NOT rebooked after their most recent session, by tenure</p>
+      <div class="chart-wrap" style="height:260px;">
+        <canvas id="rebookPieChart"></canvas>
       </div>
-      <div class="seg-row newish">
-        <div class="seg-label">New-ish clients (2–3 sessions)</div>
-        <div class="seg-bar-wrap"><div class="seg-bar"><span>16.9%</span></div></div>
-        <div class="seg-pct">16.9%</div>
-      </div>
-      <div class="seg-row established">
-        <div class="seg-label">Established clients (4+ sessions)</div>
-        <div class="seg-bar-wrap"><div class="seg-bar"><span>70.4%</span></div></div>
-        <div class="seg-pct">70.4%</div>
+      <p class="note" style="margin-top:12px;">
+        This shows <strong>who makes up</strong> the un-rebooked pool — not the rate at which each group fails to rebook. The 70.4% established clients dominate simply because there are more of them, and they're likely to return. The red flag is the <strong>12.7% who are brand-new</strong>: one session, nothing on the calendar, highest dropout risk. The in-session video prompt A/B test is directly targeting this group.
+      </p>
+    </div>
+    <div class="chart-card" style="display:flex; flex-direction:column; justify-content:center;">
+      <h3 style="margin-bottom:16px;">What Each Slice Means</h3>
+      <div style="display:flex; flex-direction:column; gap:14px;">
+        <div style="display:flex; align-items:flex-start; gap:12px;">
+          <div style="width:14px; height:14px; border-radius:3px; background:#ef4444; flex-shrink:0; margin-top:2px;"></div>
+          <div>
+            <div style="font-size:13px; font-weight:700; color:#1a202c;">New clients — 12.7%</div>
+            <div style="font-size:12px; color:#718096; margin-top:2px;">Had exactly 1 session. No prior engagement to fall back on. Most likely to fall out of care entirely if not rebooked.</div>
+          </div>
+        </div>
+        <div style="display:flex; align-items:flex-start; gap:12px;">
+          <div style="width:14px; height:14px; border-radius:3px; background:#f59e0b; flex-shrink:0; margin-top:2px;"></div>
+          <div>
+            <div style="font-size:13px; font-weight:700; color:#1a202c;">New-ish clients — 16.9%</div>
+            <div style="font-size:12px; color:#718096; margin-top:2px;">Had 2–3 sessions. Still early in care — at risk but have shown some commitment.</div>
+          </div>
+        </div>
+        <div style="display:flex; align-items:flex-start; gap:12px;">
+          <div style="width:14px; height:14px; border-radius:3px; background:#6366f1; flex-shrink:0; margin-top:2px;"></div>
+          <div>
+            <div style="font-size:13px; font-weight:700; color:#1a202c;">Established clients — 70.4%</div>
+            <div style="font-size:12px; color:#718096; margin-top:2px;">Had 4+ sessions. Largest slice simply because there are more of them. Strong prior engagement — much more likely to return on their own.</div>
+          </div>
+        </div>
       </div>
     </div>
-    <p class="note">
-      <strong>Read this chart carefully:</strong> The largest share of un-rebooked clients are established (70.4%) — but these clients already have proven engagement and are likely to return. The red flag is the <strong>12.7% who are brand-new</strong>: they have had exactly one session and have nothing on the calendar. This is the cohort most at risk of falling out of care entirely. The in-session video prompt A/B test directly targets this moment.
-    </p>
   </div>
 
   <footer>
@@ -596,6 +610,52 @@
         }
       },
       plugins: [rolloutPlugin]
+    });
+
+    // ─── Who's leaving without a next session — pie chart ────────────────────
+    new Chart(document.getElementById('rebookPieChart'), {
+      type: 'doughnut',
+      data: {
+        labels: ['New (1st session only)', 'New-ish (2–3 sessions)', 'Established (4+ sessions)'],
+        datasets: [{
+          data: [12.7, 16.9, 70.4],
+          backgroundColor: ['#ef4444', '#f59e0b', '#6366f1'],
+          borderWidth: 2,
+          borderColor: '#fff',
+          hoverOffset: 8
+        }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        cutout: '62%',
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: {
+              label: ctx => ` ${ctx.label}: ${ctx.parsed}%`
+            }
+          }
+        }
+      },
+      plugins: [{
+        id: 'centerLabel',
+        afterDraw(chart) {
+          const { ctx, chartArea } = chart;
+          const cx = (chartArea.left + chartArea.right) / 2;
+          const cy = (chartArea.top + chartArea.bottom) / 2;
+          ctx.save();
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillStyle = '#ef4444';
+          ctx.font = 'bold 22px -apple-system, sans-serif';
+          ctx.fillText('12.7%', cx, cy - 10);
+          ctx.fillStyle = '#718096';
+          ctx.font = '11px -apple-system, sans-serif';
+          ctx.fillText('brand-new', cx, cy + 10);
+          ctx.fillText('clients', cx, cy + 23);
+          ctx.restore();
+        }
+      }]
     });
 
     // ─── % of 1st-session clients with next appt booked ──────────────────────
