@@ -276,12 +276,12 @@
   <div class="charts-grid">
     <div class="chart-card">
       <h3>Who's Leaving Without a Next Session? — April 2026 <span class="opportunity-tag">🎯 Key Opportunity</span></h3>
-      <p>Composition of ~62,234 clients NOT rebooked (no 2nd session within 14 days) in April, by tenure</p>
+      <p>Composition of ~68,000 clients NOT rebooked (no 2nd session within 14 days) in April, by tenure · Source: Looker</p>
       <div class="chart-wrap" style="height:260px;">
         <canvas id="rebookPieChart"></canvas>
       </div>
       <p class="note" style="margin-top:12px;">
-        This shows <strong>who makes up</strong> the un-rebooked pool — not the rate at which each group fails to rebook. The 70.4% established clients dominate simply because there are more of them, and they're likely to return. The red flag is the <strong>12.7% who are brand-new</strong>: one session, nothing on the calendar, highest dropout risk. The in-session video prompt A/B test is directly targeting this group.
+        This shows <strong>who makes up</strong> the un-rebooked pool — not the rate at which each group fails to rebook. The 86.5% established clients dominate simply because there are far more of them, and they're likely to return. The red flag is the <strong>11.2% who are brand-new</strong>: one session, nothing on the calendar, highest dropout risk. The in-session video prompt A/B test is directly targeting this group.
       </p>
     </div>
     <div class="chart-card" style="display:flex; flex-direction:column; justify-content:center;">
@@ -290,22 +290,22 @@
         <div style="display:flex; align-items:flex-start; gap:12px;">
           <div style="width:14px; height:14px; border-radius:3px; background:#ef4444; flex-shrink:0; margin-top:2px;"></div>
           <div>
-            <div style="font-size:13px; font-weight:700; color:#1a202c;">New clients — 12.7% <span style="color:#ef4444;">(~7,900 clients)</span></div>
+            <div style="font-size:13px; font-weight:700; color:#1a202c;">New clients — 11.2% <span style="color:#ef4444;">(~7,600 clients)</span></div>
             <div style="font-size:12px; color:#718096; margin-top:2px;">Had exactly 1 session. No prior engagement to fall back on. Most likely to fall out of care entirely if not rebooked.</div>
           </div>
         </div>
         <div style="display:flex; align-items:flex-start; gap:12px;">
           <div style="width:14px; height:14px; border-radius:3px; background:#f59e0b; flex-shrink:0; margin-top:2px;"></div>
           <div>
-            <div style="font-size:13px; font-weight:700; color:#1a202c;">New-ish clients — 16.9% <span style="color:#f59e0b;">(~10,500 clients)</span></div>
-            <div style="font-size:12px; color:#718096; margin-top:2px;">Had 2–3 sessions. Still early in care — at risk but have shown some commitment.</div>
+            <div style="font-size:13px; font-weight:700; color:#1a202c;">2nd session only — 2.3% <span style="color:#f59e0b;">(~1,550 clients)</span></div>
+            <div style="font-size:12px; color:#718096; margin-top:2px;">Had exactly 2 sessions. Early in care but have returned once — still at risk without a next booking.</div>
           </div>
         </div>
         <div style="display:flex; align-items:flex-start; gap:12px;">
           <div style="width:14px; height:14px; border-radius:3px; background:#6366f1; flex-shrink:0; margin-top:2px;"></div>
           <div>
-            <div style="font-size:13px; font-weight:700; color:#1a202c;">Established clients — 70.4% <span style="color:#6366f1;">(~43,800 clients)</span></div>
-            <div style="font-size:12px; color:#718096; margin-top:2px;">Had 4+ sessions. Largest slice simply because there are more of them. Strong prior engagement — much more likely to return on their own.</div>
+            <div style="font-size:13px; font-weight:700; color:#1a202c;">Established (3+ sessions) — 86.5% <span style="color:#6366f1;">(~58,800 clients)</span></div>
+            <div style="font-size:12px; color:#718096; margin-top:2px;">Had 3+ sessions. Largest slice because there are far more of them. Strong prior engagement — most likely to return on their own.</div>
           </div>
         </div>
       </div>
@@ -616,9 +616,9 @@
     new Chart(document.getElementById('rebookPieChart'), {
       type: 'doughnut',
       data: {
-        labels: ['New (1st session only)', 'New-ish (2–3 sessions)', 'Established (4+ sessions)'],
+        labels: ['New (1st session only)', '2nd session only', 'Established (3+ sessions)'],
         datasets: [{
-          data: [12.7, 16.9, 70.4],
+          data: [11.2, 2.3, 86.5],
           backgroundColor: ['#ef4444', '#f59e0b', '#6366f1'],
           borderWidth: 2,
           borderColor: '#fff',
@@ -651,7 +651,7 @@
           ctx.fillText('12.7%', cx, cy - 10);
           ctx.fillStyle = '#718096';
           ctx.font = '11px -apple-system, sans-serif';
-          ctx.fillText('~7,900 brand-new', cx, cy + 10);
+          ctx.fillText('~7,600 brand-new', cx, cy + 10);
           ctx.fillText('clients at risk', cx, cy + 23);
           ctx.restore();
         }
