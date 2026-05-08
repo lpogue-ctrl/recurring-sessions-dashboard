@@ -225,6 +225,30 @@
   <div class="full-chart-card">
     <h3>Weekly % Recurring — by Client Session Number</h3>
     <p>12-week trend by session cohort: 1st session, 2nd session, 3rd session, and 4th+ sessions (therapy only, excl. psych)</p>
+
+    <!-- Cohort definitions -->
+    <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:16px;">
+      <div style="flex:1; min-width:180px; background:#fff7ed; border:1px solid #fed7aa; border-radius:6px; padding:10px 12px;">
+        <div style="font-size:11px; font-weight:700; color:#92400e; text-transform:uppercase; letter-spacing:0.04em; margin-bottom:4px;">🟡 1st session</div>
+        <div style="font-size:12px; color:#78350f; line-height:1.5;">Client's very first session at SonderMind. "Recurring" here means the provider set up a repeating schedule <em>at the time of booking</em> — before the session even happened. Historically near 0%; rising to ~3–4% post-rollout.</div>
+      </div>
+      <div style="flex:1; min-width:180px; background:#f0fdf4; border:1px solid #bbf7d0; border-radius:6px; padding:10px 12px;">
+        <div style="font-size:11px; font-weight:700; color:#065f46; text-transform:uppercase; letter-spacing:0.04em; margin-bottom:4px;">🟢 2nd session</div>
+        <div style="font-size:12px; color:#064e3b; line-height:1.5;">Client's second session. The recurring flag on this session means the 2nd appointment was itself part of a recurring series — most often set up after the 1st visit.</div>
+      </div>
+      <div style="flex:1; min-width:180px; background:#faf5ff; border:1px solid #e9d5ff; border-radius:6px; padding:10px 12px;">
+        <div style="font-size:11px; font-weight:700; color:#5b21b6; text-transform:uppercase; letter-spacing:0.04em; margin-bottom:4px;">🟣 3rd session</div>
+        <div style="font-size:12px; color:#4c1d95; line-height:1.5;">Client's third session. By this point, a recurring schedule is more common — the provider and client have an established rhythm. Still below the 4th+ baseline.</div>
+      </div>
+      <div style="flex:1; min-width:180px; background:#eff6ff; border:1px solid #bfdbfe; border-radius:6px; padding:10px 12px;">
+        <div style="font-size:11px; font-weight:700; color:#1e40af; text-transform:uppercase; letter-spacing:0.04em; margin-bottom:4px;">🔵 4th+ session (established)</div>
+        <div style="font-size:12px; color:#1e3a8a; line-height:1.5;">Any session that is the client's 4th or later. These are established clients with an ongoing relationship — recurring scheduling is most common here (~26–29%), which is the natural "ceiling" the other cohorts are moving toward.</div>
+      </div>
+    </div>
+    <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:6px; padding:8px 12px; margin-bottom:16px; font-size:12px; color:#475569;">
+      <strong>Important:</strong> The "recurring" flag on a session means <em>that appointment itself was booked as part of a recurring series</em> — not that a next session was booked during the visit. It reflects how the appointment was originally scheduled.
+    </div>
+
     <div class="full-chart-wrap">
       <canvas id="cohortRecurringChart"></canvas>
     </div>
